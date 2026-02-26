@@ -53,23 +53,9 @@ def is_numeric(text):
 
 def extract_text_from_csv(filepath, text_column):
     """从CSV文件中提取文本列"""
-    if not filepath.exists():
-        print(f"  文件不存在: {filepath}")
-        return []
-
-    try:
         df = pd.read_csv(filepath, encoding='utf-8')
-        if text_column not in df.columns:
-            print(f"  列 '{text_column}' 不存在于 {filepath}")
-            return []
-
-        # 过滤空值并转换为字符串
         texts = df[text_column].dropna().astype(str).tolist()
         return texts
-    except Exception as e:
-        print(f"  读取文件 {filepath} 出错: {e}")
-        return []
-
 
 def segment_and_filter(texts, stopwords):
     """使用jieba分词并过滤停用词和数字"""

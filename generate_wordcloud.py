@@ -30,18 +30,8 @@ def load_stopwords(filepath):
 
 def generate_wordcloud_from_segmented():
     """从segmented_text.txt生成词云图"""
-    print("=" * 60)
-    print("词云图生成 - 基于 segmented_text.txt")
-    print("=" * 60)
-
-    # 1. 加载停用词
-    print("\n[1/2] 加载停用词...")
     stopwords = load_stopwords(STOPWORDS_FILE)
-    print(f"  停用词: {len(stopwords)} 个")
-
     # 2. 读取分词文本并统计词频
-    print("\n[2/2] 读取分词文本并生成词云图...")
-
     all_words = []
     with open(SEGMENTED_FILE, 'r', encoding='utf-8') as f:
         for line in f:
@@ -57,8 +47,6 @@ def generate_wordcloud_from_segmented():
 
     # 统计词频
     word_counts = Counter(all_words)
-    print(f"  共统计 {len(word_counts)} 个不同的词")
-    print(f"  总词数: {sum(word_counts.values())}")
 
     # 显示前20个高频词
     top_words = word_counts.most_common(20)
@@ -92,11 +80,6 @@ def generate_wordcloud_from_segmented():
     plt.savefig(wordcloud_output, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"\n  词云图已保存到: {wordcloud_output}")
-
-    print("\n" + "=" * 60)
-    print("词云图生成完成！")
-    print(f"  - wordcloud.png       (词云图)")
-    print("=" * 60)
 
     return word_counts
 
